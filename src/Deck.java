@@ -7,17 +7,10 @@ public class Deck {
     private final List<Card> stack = new ArrayList<>();
 
     public Deck() {
-        String[] colors = {"Spades", "Hearts", "Diamond", "Clubs"};
+        String[] colors = {"Spades", "Hearts", "Diamonds", "Clubs"};
         for (String color : colors) {
-            for (int i = 1; i <= 11; i++) {
-                if (i <= 10) {
-                    stack.add(new Card(color, i));
-                }
-                if (i > 10) {
-                    stack.add(new Card(color, "Jack"));
-                    stack.add(new Card(color, "Queen"));
-                    stack.add(new Card(color, "King"));
-                }
+            for (int i = 1; i <= 13; i++) {
+                stack.add(new Card(color, i));
             }
         }
     }
@@ -44,12 +37,11 @@ public class Deck {
     public Card draw() {
         Card card = (stack.get(stack.size() - 1));
         stack.remove(stack.size() - 1);
-        //System.out.println(card);
         return card;
     }
 
-    public void cardsRemaining() {
-        System.out.println(stack.size());
+    public int cardsRemaining() {
+        return stack.size();
     }
 
     public List<Card> getStack() {
@@ -60,12 +52,4 @@ public class Deck {
     public String toString() {
         return stack.toString();
     }
-
-    /*@Override
-    public boolean equals(Object obj) {
-        if (picture + " of " + color == obj) {
-            return true;
-        }
-        return false;
-    }*/
 }

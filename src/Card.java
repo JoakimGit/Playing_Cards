@@ -1,4 +1,7 @@
-public class Card {
+import java.util.HashMap;
+import java.util.Map;
+
+public class Card implements Comparable<Card> {
 
     private int number;
     private String picture;
@@ -7,11 +10,15 @@ public class Card {
     public Card(String color, int number) {
         this.color = color;
         this.number = number;
-    }
-
-    public Card(String color, String picture) {
-        this.color = color;
-        this.picture = picture;
+        if (number == 11) {
+            this.picture = "Jack";
+        }
+        if (number == 12) {
+            this.picture = "Queen";
+        }
+        if (number == 13) {
+            this.picture = "King";
+        }
     }
 
     public Card() {
@@ -46,17 +53,22 @@ public class Card {
         if (number == 1) {
             return "Ace of " + color;
         }
-        else if (number > 1) {
+        else if (number < 11) {
             return number + " of " + color;
         }
         return picture + " of " + color;
     }
 
-    /*@Override
-    public boolean equals(Object obj) {
-        if (picture + " of " + color == obj) {
-            return true;
+    @Override
+    public int compareTo(Card other) {
+        if (number != other.getNumber()) {
+            return number - other.getNumber();
         }
-        return false;
-    }*/
+        Map<String, Integer> hierarchy = new HashMap<>();
+        hierarchy.put("Spades", 4);
+        hierarchy.put("Hearts", 3);
+        hierarchy.put("Diamonds", 2);
+        hierarchy.put("Clubs", 1);
+        return hierarchy.get(color) - hierarchy.get(other.getColor());
+    }
 }
